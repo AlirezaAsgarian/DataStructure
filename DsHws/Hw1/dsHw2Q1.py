@@ -34,4 +34,4 @@ def getResult(value):
 
 
 #n = int(input())
-#print(getResult(n))
+#"print(getResult(n))

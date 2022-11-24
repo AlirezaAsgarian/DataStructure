@@ -91,4 +91,22 @@ def joinAndGetNewMax(pointOfJoin, graph,preMax):
 
 
 def print_result(numberOfNodes, cuttingPoints):
-    return None
+    result = []
+    graph = createGraph(numberOfNodes)
+    cutGraph(graph,cuttingPoints)
+    max = createDisjointSetsAndReturnFirstMaximum(graph)
+    result.append(max.getLength())
+    for point in range(len(cuttingPoints) - 1 , 0, -1 ) :
+        max = joinAndGetNewMax(cuttingPoints[point],graph,max)
+        result.append(max.getLength())
+    for i in range(len(result) - 1 , -1  , -1) :
+        print(result[i])
+
+
+number_of_nodes = int(input().split()[0])
+cuttingPoints = []
+
+for i in input().split() :
+    cuttingPoints.append(int(i))
+
+print_result(number_of_nodes,cuttingPoints)

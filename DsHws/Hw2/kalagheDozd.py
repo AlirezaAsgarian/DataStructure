@@ -1,3 +1,6 @@
+import math
+
+
 class heap:
     primes = None
 
@@ -41,12 +44,12 @@ class heap:
 
     def parent(self, input):
         return int(input / 2)
-
-
 def isPrime(x):
     for i in range(2, x):
         if x % i == 0: return False
     return True
+
+
 
 
 def getPrimeNumbers(primeNumbers):
@@ -64,21 +67,63 @@ def getPrimeNumbers(primeNumbers):
     return output_primes
 
 
+def LogN(n, x):
+    return (math.log10(x) / math.log10(n))
+
+
+def isPowerOfTwo(n):
+    return (math.ceil(LogN(2, n)) == math.floor(LogN(2, n)))
+
+
+def isPowerOfN(n, x):
+    return (math.ceil(LogN(n, x)) == math.floor(LogN(n, x)))
+
+
+def isDivisionOfPowerOfTwo(base, value):
+    if isPowerOfN(base, value):
+        if isPowerOfTwo(LogN(base, value)):
+            return True
+        else:
+            return False
+    else:
+        return False
+
+
+
+
+def getAppropiateNumbers(numbers):
+    outputPrimes = []
+    maxSizeOfArray = 16 * numbers
+    primes = [True] * maxSizeOfArray
+    counter = 0
+    currentNumber = 2
+    sqrtOfMaxSize = int(math.sqrt(maxSizeOfArray))
+    for i in range(2, sqrtOfMaxSize):
+        if primes[i]:
+                ddr = i * i
+                for j in range(i * i, maxSizeOfArray, i):
+                    if ddr != j :
+                        primes[j] = False
+                    else:
+                        ddr *= ddr
+    for i in range(2, maxSizeOfArray):
+        if primes[i]:
+            counter += 1
+            outputPrimes.append(i)
+        if counter == numbers : break
+
+    return outputPrimes
+
+
+
+
 def printResult(inputSerial):
-    prime_numbers = getPrimeNumbers(inputSerial)
-    minHeap = heap(prime_numbers)
-    currentserial = 0
+    prime_numbers = getAppropiateNumbers(inputSerial)
     result = 1
-    while currentserial != inputSerial:
-        min_prime = minHeap.removeMin()
-        result *= min_prime
-        result %= 1000000007
-        min_prime = min_prime ** 2
-        currentserial += 1
-        minHeap.push(min_prime)
+    for i in range(0,inputSerial) :
+        result *= prime_numbers[i]
+        if result > 1000000007 : result %= 1000000007
     print(result)
-
-
 
 serial = int(input())
 printResult(serial)

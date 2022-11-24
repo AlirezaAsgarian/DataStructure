@@ -82,12 +82,30 @@ class asghareTammaTest(unittest.TestCase):
         self.assertEqual(maxSet.getLength(),3)
 
     def test_print_result(self):
+        capturedOutput = io.StringIO()
+        sys.stdout = capturedOutput
         numberOfNodes = 5
         graph = DsHws.Hw2.asghareTama.createGraph(numberOfNodes)
         cuttingPoints = [2, 3, 4]
         DsHws.Hw2.asghareTama.print_result(numberOfNodes,cuttingPoints)
+        self.assertEqual("3\n2\n2\n",capturedOutput.getvalue())
+
+    def test_print_result(self):
         capturedOutput = io.StringIO()
         sys.stdout = capturedOutput
+        numberOfNodes = 5
+        graph = DsHws.Hw2.asghareTama.createGraph(numberOfNodes)
+        cuttingPoints = [2, 3, 4]
+        DsHws.Hw2.asghareTama.print_result(numberOfNodes, cuttingPoints)
+        self.assertEqual("3\n2\n2\n", capturedOutput.getvalue())
 
+    def test_print_result2(self):
+        capturedOutput = io.StringIO()
+        sys.stdout = capturedOutput
+        numberOfNodes = 6
+        graph = DsHws.Hw2.asghareTama.createGraph(numberOfNodes)
+        cuttingPoints = [4 , 3, 2, 1]
+        DsHws.Hw2.asghareTama.print_result(numberOfNodes, cuttingPoints)
+        self.assertEqual("4\n3\n2\n2\n", capturedOutput.getvalue())
 
 
