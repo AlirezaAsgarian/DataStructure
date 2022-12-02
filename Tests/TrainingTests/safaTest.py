@@ -15,5 +15,6 @@ class safa_tests(unittest.TestCase):
         q.append("2 1 1")
         q.append("1 1")
         q.append("2 2 3")
-        Training.safa.print_result(2, 5, q)
-        self.assertEqual("5\n23\n", capturedOutput.getvalue())
+        q.append("2 1 2")
+        Training.safa.print_result(2, len(q), q)
+        self.assertEqual("5\n23\n18\n", capturedOutput.getvalue())
